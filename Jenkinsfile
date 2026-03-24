@@ -50,6 +50,7 @@ pipeline {
                   sh '''
                   docker rmi -f ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
                   docker rmi -f greelss/${DOCKER_IMAGE_NAME}:latest
+                  '''
                 }
             }
         }
@@ -60,4 +61,4 @@ pipeline {
         }
     }
 }
-}
+
