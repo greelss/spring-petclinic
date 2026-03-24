@@ -45,7 +45,7 @@ pipeline {
               '''
                 }
             }
-        }
+        
         stage('Docker Container Run') {
             steps {
                 echo 'Docker Container Run'
@@ -72,5 +72,5 @@ pipeline {
             }
         }
     }
-}
+
 
