@@ -62,7 +62,8 @@ pipeline {
                 verbose: false)])
             }
         }
-        post {
+    }
+    post {
             always{
               sh '''
               docker rmi -f ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
@@ -70,6 +71,5 @@ pipeline {
               '''
                 }
         }    
-    }
 }
 
