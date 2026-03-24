@@ -36,15 +36,6 @@ pipeline {
                  '''
             }
         }
-    }
-    post {
-            always{
-              sh '''
-              docker rmi -f ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
-              docker rmi -f greelss/${DOCKER_IMAGE_NAME}:latest
-              '''
-                }
-    }    
         
         stage('Docker Container Run') {
             steps {
@@ -71,6 +62,14 @@ pipeline {
                 verbose: false)])
             }
         }
+        post {
+            always{
+              sh '''
+              docker rmi -f ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+              docker rmi -f greelss/${DOCKER_IMAGE_NAME}:latest
+              '''
+                }
+        }    
     }
 }
 
