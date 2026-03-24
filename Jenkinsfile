@@ -44,7 +44,7 @@ pipeline {
               docker rmi -f greelss/${DOCKER_IMAGE_NAME}:latest
               '''
                 }
-            
+    }    
         
         stage('Docker Container Run') {
             steps {
