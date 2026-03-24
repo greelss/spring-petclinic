@@ -5,20 +5,31 @@ pipeline {
         jdk 'JDK21'
         maven 'M3'
     }
+    envrionment {
+        //환경변수 지정
+        DOCKER_IMAGE_NAME = "spring-prtclinic"
+
+        // Credentials
+        DOCKERHUB_CRED = credentials('dockerCredentiasl')
+    }
     stages {
         stage('Git Clone') {
             steps {
-                sh 'mvn clean package -Dmaven.test.failure.ignore=true'
+                git url: 'https://github.com/greelss/spring-petclinic.git',
+                branch: 'main'
             }
         }
         stage('Maven Build') {
             steps {
-                echo 'Maven Build'
+                 sh 'mvn clean package -Dmaven.test.failure.ignore=true'
             }
         }
         stage('Docker Image Create') {
             steps {
-               echo 'Docker Image Create' 
+               sh '''
+                 docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} .
+                 docker tag ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} greelss/${DOCKER_IMAGE_NAME}:latest
+                 '''
             }
         }
         stage('Docker Hub Login') {
