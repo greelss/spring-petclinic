@@ -10,7 +10,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "spring-prtclinic"
 
         // Credentials
-        //DOCKERHUB_CRED = credentials('dockerCredentiasl')
+        DOCKERHUB_CRED = credentials('dockerCredentials')
     }
     stages {
         stage('Git Clone') {
@@ -35,11 +35,22 @@ pipeline {
         stage('Docker Hub Login') {
             steps {
                echo 'Docker Hub Login'
+               sh 'echo ${DOCKERHUB_CRED_PSW} | docker login -u ${DOCKERHUB_CRED_USR} --password-stdin'
             }
         }
         stage('Docker Image Push') {
             steps {
                 echo 'Docker Image Push'
+                sh '''
+                docker push greelss/${DOCKER_IMAGE_NAME}:latest
+                '''
+            }
+            post{
+                always{
+                  sh '''
+                  docker rmi -f ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+                  docker rmi -f greelss/${DOCKER_IMAGE_NAME}:latest
+                }
             }
         }
         stage('Docker Container Run') {
