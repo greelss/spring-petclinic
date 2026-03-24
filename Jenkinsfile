@@ -18,7 +18,7 @@ pipeline {
         stage('Git Clone') {
             steps {
                 git url: 'https://github.com/greelss/spring-petclinic.git',
-                branch: 'main'
+                    branch: 'main'
             }
         }
         stage('Maven Build') {
@@ -71,5 +71,5 @@ pipeline {
             }
         }
     }
-}
+
 
