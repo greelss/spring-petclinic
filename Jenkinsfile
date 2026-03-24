@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         //환경변수 지정
-        DOCKER_IMAGE_NAME = "spring-prtclinic"
+        DOCKER_IMAGE_NAME = "spring-petclinic"
 
         // Credentials
         DOCKERHUB_CRED = credentials('dockerCredentials')
