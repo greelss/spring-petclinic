@@ -10,7 +10,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "spring-prtclinic"
 
         // Credentials
-        DOCKERHUB_CRED = credentials('dockerCredentiasl')
+        //DOCKERHUB_CRED = credentials('dockerCredentiasl')
     }
     stages {
         stage('Git Clone') {
